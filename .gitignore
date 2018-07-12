@@ -40,7 +40,14 @@ hs_err_pid*
 .idea/**/dbnavigator.xml
 
 # IntelliJ
+.idea/
 out/
+target/
+*.iml
+
+modules.xml
+.idea/misc.xml
+*.ipr
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
