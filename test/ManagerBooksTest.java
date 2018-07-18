@@ -60,7 +60,7 @@ public class ManagerBooksTest {
         managerBooks.addNewBook();
         assertTrue("Книг должно стать больше", catalog.size() > size);
         assertEquals(1, catalog.size() - size);
-        assertEquals("  Автор  Н.С.Лесков  Название  Левша", catalog.get(4).toString());
+        assertEquals("  Автор  Н.С.Лесков  Название  Левша",  catalog.get(catalog.size()-1).toString());
     }
 
     @Test
