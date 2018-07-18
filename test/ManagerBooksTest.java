@@ -9,35 +9,16 @@ import static org.junit.Assert.*;
 public class ManagerBooksTest {
 
     @Test
-     public void testShowMenu() throws IOException {
+    public void testShowMenu() throws IOException {
         ManagerBooks managerBooks = new ManagerBooks();
         List<String> menu = managerBooks.getMenu();
-        try (PrintWriter out = new PrintWriter(new FileWriter("menu.txt"))) {
-            for (String string : menu) {
-                out.println(string);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try (BufferedReader in = new BufferedReader(new FileReader("menu.txt"))) {
-            String line;
-            line = in.readLine();
-            assertEquals("Выберите действие:", line);
-            line = in.readLine();
-            assertEquals("Добавить  книгу -- 1", line);
-            line = in.readLine();
-            assertEquals("Посмотреть информацию о книге -- 2", line);
-            line = in.readLine();
-            assertEquals("Удалить книгу--3", line);
-            line = in.readLine();
-            assertEquals("Просмотреть весь каталог--4", line);
-            line = in.readLine();
-            assertEquals("Завершить работу--5", line);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        assertEquals("Выберите действие:", menu.get(0));
+        assertEquals("Добавить  книгу -- 1", menu.get(1));
+        assertEquals("Посмотреть информацию о книге -- 2", menu.get(2));
+        assertEquals("Удалить книгу--3", menu.get(3));
+        assertEquals("Просмотреть весь каталог--4", menu.get(4));
+        assertEquals("Завершить работу--5", menu.get(5));
     }
 
     @Test
@@ -60,7 +41,7 @@ public class ManagerBooksTest {
         managerBooks.addNewBook();
         assertTrue("Книг должно стать больше", catalog.size() > size);
         assertEquals(1, catalog.size() - size);
-        assertEquals("  Автор  Н.С.Лесков  Название  Левша",  catalog.get(catalog.size()-1).toString());
+        assertEquals("  Автор  Н.С.Лесков  Название  Левша", catalog.get(catalog.size() - 1).toString());
     }
 
     @Test
@@ -97,13 +78,13 @@ public class ManagerBooksTest {
     }
 
     @Test
-   /**
-    *  <ul>
-    *<b>   Тестирование выбора операции менеджера с помощью меню</b>
-    *<li>------------------------------------------------------</li>
-    * <b> Подготовка</b>
-    *<li> Создаем менеджера книг и инициализируем каталог.</li>
-    *<b>Выполнение действий и проверки</b>
+    /**
+     *  <ul>
+     *<b>   Тестирование выбора операции менеджера с помощью меню</b>
+     *<li>------------------------------------------------------</li>
+     * <b> Подготовка</b>
+     *<li> Создаем менеджера книг и инициализируем каталог.</li>
+     *<b>Выполнение действий и проверки</b>
      *<li>1. Имитируем ввод с консоли  числа,  соответствующего выбранной операции.</li>
      *<li> 2.Проверяем:</li>
      *<li>  - правильность введенного числа;</li>
@@ -112,7 +93,7 @@ public class ManagerBooksTest {
      */
     public void testChooseMenu() throws IOException {
         ManagerBooks managerBooks = new ManagerBooks();
-       managerBooks.initCatalog();
+        managerBooks.initCatalog();
 
         String mockInput = "1";   //добавить книгу
         InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
