@@ -68,7 +68,7 @@ public class ManagerBooksTest {
     public void testConsoleInput() throws UnsupportedEncodingException {
         String mockInput = "Е.И.Замятин Мы";
         InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
-        ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
+       Input consoleInput = new ConsoleInput(mockInputStream);
         assertEquals(new Book("Е.И.Замятин", "Мы"), consoleInput.getBook());
 
         String mockInput1 = "1";
@@ -97,7 +97,7 @@ public class ManagerBooksTest {
 
         String mockInput = "1";   //добавить книгу
         InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
-        ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
+        Input consoleInput = new ConsoleInput(mockInputStream);
         int number = consoleInput.getNumber();
         assertEquals(1, number);
         managerBooks.chooseMenu(number);

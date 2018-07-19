@@ -1,7 +1,7 @@
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class ConsoleInput {
+public class ConsoleInput  implements Input{
     private Scanner scanner;
 
     public ConsoleInput() {

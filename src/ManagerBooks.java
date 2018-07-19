@@ -18,7 +18,7 @@ public class ManagerBooks {
 
     String mockInput = "Н.С.Лесков Левша";
     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
-    ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
+    Input consoleInput = new ConsoleInput(mockInputStream);
 
 
     public ManagerBooks() throws IOException {
@@ -41,8 +41,7 @@ public class ManagerBooks {
     }
 
     public void showMenu() {  // показать меню
-        getMenu();
-        for (String string : menu) {
+            for (String string : menu) {
             System.out.println(string);
         }
     }
