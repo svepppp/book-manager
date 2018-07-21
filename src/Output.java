@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
-
 public interface Output {
+   void setMessage(String message);
+   String getMessage();
 }

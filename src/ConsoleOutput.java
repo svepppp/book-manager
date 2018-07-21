@@ -1,4 +1,12 @@
-package PACKAGE_NAME;
+public class ConsoleOutput implements Output {
 
-public class ConsoleOutput {
+    @Override
+    public void setMessage(String string) {
+        System.out.println(string);
+    }
+
+    @Override
+    public String getMessage() {
+             return null;
+    }
 }

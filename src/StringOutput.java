@@ -1,4 +1,12 @@
-package PACKAGE_NAME;
+public class StringOutput  implements Output{
+    String string;
+    @Override
+    public void setMessage(String string) {
+        this.string=string;
+    }
 
-public class StringOutput {
+    @Override
+    public String getMessage() {
+        return string;
+    }
 }

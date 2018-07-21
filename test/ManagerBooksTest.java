@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 public class ManagerBooksTest {
 
+
     @Test
     public void testShowMenu() throws IOException {
         ManagerBooks managerBooks = new ManagerBooks();
@@ -47,11 +48,12 @@ public class ManagerBooksTest {
     @Test
     public void testInfoBook() throws IOException {
         ManagerBooks managerBooks = new ManagerBooks();
+        Output output=managerBooks.getOutput();
         managerBooks.initCatalog();
         managerBooks.getInfoBook(1);
-        assertEquals("Под номером 1 книга    Автор  А.С.Пушкин  Название  Евгений Онегин", managerBooks.getMessage());
+        assertEquals("Под номером 1 книга    Автор  А.С.Пушкин  Название  Евгений Онегин", output.getMessage());
         managerBooks.getInfoBook(6);
-        assertEquals("Книги под номером 6   нет в каталоге", managerBooks.getMessage());
+        assertEquals("Книги под номером 6   нет в каталоге", output.getMessage());
     }
 
     @Test
@@ -93,6 +95,7 @@ public class ManagerBooksTest {
      */
     public void testChooseMenu() throws IOException {
         ManagerBooks managerBooks = new ManagerBooks();
+        Output output=managerBooks.getOutput();
         managerBooks.initCatalog();
 
         String mockInput = "1";   //добавить книгу
@@ -101,7 +104,7 @@ public class ManagerBooksTest {
         int number = consoleInput.getNumber();
         assertEquals(1, number);
         managerBooks.chooseMenu(number);
-        assertEquals(" Книга    Автор  Н.С.Лесков  Название  Левша   добавлена в каталог", managerBooks.getMessage());
+        assertEquals(" Книга    Автор  Н.С.Лесков  Название  Левша   добавлена в каталог", output.getMessage());
 
         mockInput = "2";    // получить информацию о книге
         mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
@@ -109,7 +112,7 @@ public class ManagerBooksTest {
         number = consoleInput.getNumber();
         assertEquals(2, number);
         managerBooks.chooseMenu(number);
-        assertEquals("Под номером 1 книга    Автор  А.С.Пушкин  Название  Евгений Онегин", managerBooks.getMessage());
+        assertEquals("Под номером 1 книга    Автор  А.С.Пушкин  Название  Евгений Онегин",  output.getMessage());
 
         mockInput = "3";      //  удалить книгу
         mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
@@ -117,7 +120,7 @@ public class ManagerBooksTest {
         number = consoleInput.getNumber();
         assertEquals(3, number);
         managerBooks.chooseMenu(number);
-        assertEquals("Книга под номером  2    Автор  Л.Н.Толстой  Название  Война и мир   удалена", managerBooks.getMessage());
+        assertEquals("Книга под номером  2    Автор  Л.Н.Толстой  Название  Война и мир   удалена",  output.getMessage());
 
         mockInput = "4";     //  показать каталог
         mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
@@ -154,7 +157,8 @@ public class ManagerBooksTest {
     @Test
     public void testCheckCatalog() throws IOException {
         ManagerBooks managerBooks = new ManagerBooks();
+        Output output=managerBooks.getOutput();
         managerBooks.checkCatalog();
-        assertEquals("Книг нет. Каталог недоступен. ", managerBooks.getMessage());
+        assertEquals("Книг нет. Каталог недоступен. ", output.getMessage());
     }
 }

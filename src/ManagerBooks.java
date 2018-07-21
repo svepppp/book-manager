@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerBooks {
-    private String message;   //  для тестирования
     private List<Book> catalog = new ArrayList<>();
     private List<String> menu;
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String string) {
-        message = string;
-    }
-
+    Output output = new StringOutput();           //  для тестирования
+    //Output output =new ConsoleOutput();         //для работы
     String mockInput = "Н.С.Лесков Левша";
+
+    public Output getOutput() {
+        return output;
+    }
+
     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
     Input consoleInput = new ConsoleInput(mockInputStream);
 
@@ -41,8 +39,8 @@ public class ManagerBooks {
     }
 
     public void showMenu() {  // показать меню
-            for (String string : menu) {
-            System.out.println(string);
+        for (String string : menu) {
+            output.setMessage(string);
         }
     }
 
@@ -50,8 +48,7 @@ public class ManagerBooks {
         Book newBook = consoleInput.getBook();
         catalog.add(newBook);
         String string = " Книга  " + newBook.toString() + "   добавлена в каталог";
-        System.out.println(string);
-        setMessage(string);
+        output.setMessage(string);
     }
 
     public List<Book> initCatalog() {
@@ -67,12 +64,10 @@ public class ManagerBooks {
         if (number - 1 <= catalog.size()) {
             Book book = catalog.get(number - 1);
             string = "Под номером " + number + " книга  " + book.toString();
-            System.out.println(string);
-            setMessage(string);
+            output.setMessage(string);
         } else {
             string = "Книги под номером " + number + "   нет в каталоге";
-            System.out.println(string);
-            setMessage(string);
+            output.setMessage(string);
         }
     }
 
@@ -82,20 +77,17 @@ public class ManagerBooks {
             Book book = catalog.get(number - 1);
             catalog.remove(number - 1);
             string = "Книга под номером  " + number + "  " + book.toString() + "   удалена";
-            System.out.println(string);
-            setMessage(string);
+            output.setMessage(string);
         } else {
-            string = "Книги под номером " + number + "  нет в каталоге";
-            setMessage(string);
-            System.out.println(string);
+            string = "/Книги под номером " + number + "  нет в каталоге";
+            output.setMessage(string);
         }
         return string;
     }
 
     public boolean checkCatalog() {                       //  проверить  каталог
         if (catalog.size() == 0) {
-            System.out.println("Книг нет. Каталог недоступен. ");
-            setMessage("Книг нет. Каталог недоступен. ");
+            output.setMessage("Книг нет. Каталог недоступен. ");
             return false;
         } else return true;
     }
@@ -105,12 +97,12 @@ public class ManagerBooks {
 
         switch (itemMenu) {
             case 1:                                    //добавить книгу
-                System.out.println("Укажите автора и название книги через пробел\n");
+                output.setMessage("Укажите автора и название книги через пробел\n");
                 addNewBook();
                 break;
             case 2:                                    // получить информацию о книге
                 if (checkCatalog()) {
-                    System.out.println("Укажите номер книги");
+                    output.setMessage("Укажите номер книги");
                     mockInput = "1\n6";
                     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
                     ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
@@ -120,7 +112,7 @@ public class ManagerBooks {
                 break;
             case 3:                                      //  удалить книгу
                 if (checkCatalog()) {
-                    System.out.println("Укажите номер книги");
+                    output.setMessage("Укажите номер книги");
                     mockInput = "2";
                     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
                     ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
@@ -141,11 +133,11 @@ public class ManagerBooks {
     }
 
     private void showCatalog() {           //  показать каталог
-        System.out.println("Список книг");
+        output.setMessage("Список книг");
         for (Book book : catalog) {
-            System.out.println(book.toString());
+            output.setMessage(book.toString());
         }
-        try (PrintWriter out = new PrintWriter(new FileWriter("catalog.txt"))) {
+        try (PrintWriter out = new PrintWriter(new FileWriter("catalog.txt"))) {  // для тесстирования
             out.println("Список книг");
             for (Book book : catalog) {
                 out.println(book.toString());
