@@ -7,8 +7,7 @@ public class ManagerBooks {
     private List<Book> catalog = new ArrayList<>();
     private List<String> menu;
 
-    Output output = new StringOutput();           //  для тестирования
-    //Output output =new ConsoleOutput();         //для работы
+    Output output = new ConsoleOutput();
     String mockInput = "Н.С.Лесков Левша";
 
     public Output getOutput() {
@@ -47,8 +46,7 @@ public class ManagerBooks {
     public void addNewBook() {
         Book newBook = consoleInput.getBook();
         catalog.add(newBook);
-        String string = " Книга  " + newBook.toString() + "   добавлена в каталог";
-        output.setMessage(string);
+        output.showBookInfo(newBook, 0, 0);
     }
 
     public List<Book> initCatalog() {
@@ -63,31 +61,25 @@ public class ManagerBooks {
         String string;
         if (number - 1 <= catalog.size()) {
             Book book = catalog.get(number - 1);
-            string = "Под номером " + number + " книга  " + book.toString();
-            output.setMessage(string);
+            output.showBookInfo(book, number, 1);
         } else {
-            string = "Книги под номером " + number + "   нет в каталоге";
-            output.setMessage(string);
+            output.showBookInfo(new Book(), number, 2);
         }
     }
 
-    public String delBook(int number) {          //  удалить книгу
-        String string;
+    public void delBook(int number) {          //  удалить книгу
         if (number - 1 < catalog.size()) {
             Book book = catalog.get(number - 1);
             catalog.remove(number - 1);
-            string = "Книга под номером  " + number + "  " + book.toString() + "   удалена";
-            output.setMessage(string);
+            output.showBookInfo(book, number, 3);
         } else {
-            string = "/Книги под номером " + number + "  нет в каталоге";
-            output.setMessage(string);
+            output.showBookInfo(new Book(), number, 2);
         }
-        return string;
     }
 
     public boolean checkCatalog() {                       //  проверить  каталог
         if (catalog.size() == 0) {
-            output.setMessage("Книг нет. Каталог недоступен. ");
+            output.showBookInfo(new Book(), 0, 4);
             return false;
         } else return true;
     }
@@ -97,12 +89,12 @@ public class ManagerBooks {
 
         switch (itemMenu) {
             case 1:                                    //добавить книгу
-                output.setMessage("Укажите автора и название книги через пробел\n");
+                output.showBookInfo(new Book(), 0, 5);
                 addNewBook();
                 break;
             case 2:                                    // получить информацию о книге
                 if (checkCatalog()) {
-                    output.setMessage("Укажите номер книги");
+                    output.showBookInfo(new Book(), 0, 6);
                     mockInput = "1\n6";
                     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
                     ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
@@ -112,7 +104,7 @@ public class ManagerBooks {
                 break;
             case 3:                                      //  удалить книгу
                 if (checkCatalog()) {
-                    output.setMessage("Укажите номер книги");
+                    output.showBookInfo(new Book(), 0, 6);
                     mockInput = "2";
                     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
                     ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
@@ -133,9 +125,9 @@ public class ManagerBooks {
     }
 
     private void showCatalog() {           //  показать каталог
-        output.setMessage("Список книг");
+        output.showBookInfo(new Book(), 0, 7);
         for (Book book : catalog) {
-            output.setMessage(book.toString());
+            output.showBookInfo(book, 0, 8);
         }
         try (PrintWriter out = new PrintWriter(new FileWriter("catalog.txt"))) {  // для тесстирования
             out.println("Список книг");
