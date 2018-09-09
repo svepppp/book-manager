@@ -8,15 +8,15 @@ public class ManagerBooks {
     private List<String> menu;
 
     Output output = new ConsoleOutput();
-    String mockInput = "Н.С.Лесков Левша";
+  //  String mockInput = "Н.С.Лесков Левша";
 
     public Output getOutput() {
         return output;
     }
 
-    InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
-    Input consoleInput = new ConsoleInput(mockInputStream);
-
+  /*  InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
+    Input consoleInput = new ConsoleInput(mockInputStream);*/
+  Input consoleInput = new ConsoleInput();
 
     public ManagerBooks() throws IOException {
         menu = new ArrayList<>();
@@ -95,9 +95,9 @@ public class ManagerBooks {
             case 2:                                    // получить информацию о книге
                 if (checkCatalog()) {
                     output.showBookInfo(new Book(), 0, 6);
-                    mockInput = "1\n6";
+                /*    mockInput = "1\n6";
                     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
-                    ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
+                    ConsoleInput consoleInput = new ConsoleInput(mockInputStream);*/
                     int numberBook = consoleInput.getNumber();
                     getInfoBook(numberBook);
                 }
@@ -105,9 +105,9 @@ public class ManagerBooks {
             case 3:                                      //  удалить книгу
                 if (checkCatalog()) {
                     output.showBookInfo(new Book(), 0, 6);
-                    mockInput = "2";
+                   /* mockInput = "2";
                     InputStream mockInputStream = new ByteArrayInputStream(mockInput.getBytes(StandardCharsets.UTF_8.name()));
-                    ConsoleInput consoleInput = new ConsoleInput(mockInputStream);
+                    ConsoleInput consoleInput = new ConsoleInput(mockInputStream);*/
                     int numberBook = consoleInput.getNumber();
                     delBook(numberBook);
                 }
